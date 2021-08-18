@@ -15,6 +15,7 @@ const HomePage = () => {
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
+    
     );
 
   return (
@@ -41,3 +42,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

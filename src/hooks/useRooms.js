@@ -25,6 +25,7 @@ const useRooms = () => {
       })
     );
 
+    console.log(room);
     return putRoom(room);
   };
 

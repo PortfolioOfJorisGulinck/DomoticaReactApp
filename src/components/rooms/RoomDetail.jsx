@@ -31,13 +31,13 @@ const RoomDetail = () => {
       <p className="mb-5">{room.description}</p>
 
       <Row className="mb-5">
-        {room.temperature !== undefined ? <Temperature room={room} /> : null}
+        {room.temperature !== null ? <Temperature room={room} /> : null}
 
-        {room.lighting !== undefined ? <Lighting room={room} /> : null}
+        {room.lighting !== null ? <Lighting room={room} /> : null}
 
-        {room.music !== undefined ? <Music room={room} /> : null}
+        {room.music !== null ? <Music room={room} /> : null}
 
-        {room.curtains !== undefined ? <Curtains room={room} /> : null}
+        {room.curtains !== null ? <Curtains room={room} /> : null}
       </Row>
     </Container>
   );

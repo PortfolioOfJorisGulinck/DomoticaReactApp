@@ -1,4 +1,4 @@
-export const DB_URL = "http://localhost:3001";
+export const DB_URL = "http://localhost:8082";
 //json-server --port 3001 --watch src/database/db.json
 
 // nog te doen:

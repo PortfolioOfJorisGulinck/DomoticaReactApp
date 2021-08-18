@@ -114,7 +114,7 @@ const RoomSummaryList = ({ roomId }) => {
             max="20"
           />
 
-          {room.temperature !== undefined && showTemperature ? (
+          {room.temperature !== null && showTemperature ? (
             <RoomsListSlider
               fontSize={fontSize}
               title={`${room.temperature}°`}
@@ -126,7 +126,7 @@ const RoomSummaryList = ({ roomId }) => {
             />
           ) : null}
 
-          {room.music !== undefined && showMusic ? (
+          {room.music !== null && showMusic ? (
             <Row className="m-2">
               <Col xs={3} className="py-3">
                 <img
@@ -146,7 +146,7 @@ const RoomSummaryList = ({ roomId }) => {
             </Row>
           ) : null}
 
-          {room.curtains !== undefined ? (
+          {room.curtains !== null ? (
             <Row className="rm-2 ml-4 text-left">
               <Col xs={4}>
                 <h4 style={{ fontSize: `${fontSize}px` }}>Gordijnen</h4>

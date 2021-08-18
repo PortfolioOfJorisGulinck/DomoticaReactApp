@@ -62,10 +62,10 @@ const RoomSummaryMap = ({ room }) => {
           </h4>
         </div>
         <div style={{ padding: "10px", backgroundColor: "fff" }}>
-          {room.temperature !== undefined ? (
+          {room.temperature !== null ? (
             <h4 style={{ color: "000" }}>{`${room.temperature}°`}</h4>
           ) : null}
-          {room.music !== undefined ? (
+          {room.music !== null ? (
             <img
               src={room.music < 1 ? MusicOff : MusicOn}
               alt="Music icon"
