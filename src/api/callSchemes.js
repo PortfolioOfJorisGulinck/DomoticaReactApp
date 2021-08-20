@@ -27,9 +27,9 @@ export async function postScheme(scheme) {
   }
 }
 
-export async function putScheme(id, ...scheme) {
+export async function putScheme(scheme) {
   try {
-    const response = await axios.put(`${DB_URL}/schemes/${id}`, scheme);
+    const response = await axios.put(`${DB_URL}/schemes/${scheme.id}`, scheme);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {

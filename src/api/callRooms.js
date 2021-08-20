@@ -14,9 +14,9 @@ export async function getRooms() {
   }
 }
 
-export async function putRoom({ id, ...room }) {
+export async function putRoom(room) {
   try {
-    const response = await axios.put(`${DB_URL}/rooms/${id}`, room);
+    const response = await axios.put(`${DB_URL}/rooms/${room.id}`, room);
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
     } else {
