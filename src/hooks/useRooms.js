@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getRooms, putRoom } from "./../api/callRooms";
-import { useInterval } from "./useInterval";
 
 const useRooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -32,10 +31,6 @@ const useRooms = () => {
   useEffect(() => {
     readAllRooms();
   }, []);
-
-  useInterval(() => {
-    readAllRooms();
-  });
 
   return {
     rooms,

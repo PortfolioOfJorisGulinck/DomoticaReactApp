@@ -5,7 +5,6 @@ import {
   postScheme,
   deleteScheme,
 } from "./../api/callSchemes";
-import { useInterval } from "./useInterval";
 
 const useSchemes = () => {
   const [schemes, setSchemes] = useState();
@@ -50,10 +49,6 @@ const useSchemes = () => {
   useEffect(() => {
     readAllSchemes();
   }, []);
-
-  useInterval(() => {
-    readAllSchemes();
-  });
 
   return {
     schemes,
