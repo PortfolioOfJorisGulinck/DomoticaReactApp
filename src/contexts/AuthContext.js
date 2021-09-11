@@ -4,7 +4,7 @@ import { getToken } from "./../api/getJwtToken";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [account, setAccount] = useState({ username: "john", password: "john" });
+  const [account, setAccount] = useState({ username: "", password: "" });
   const [isValidated, setIsValidated] = useState(false);
 
   const getJwtToken = async () => {
@@ -16,12 +16,19 @@ const AuthContextProvider = ({ children }) => {
     getJwtToken();
   };
 
+  const logout = () => {
+    localStorage.clear();
+    setAccount({ username: "", password: "" });
+    setIsValidated(false);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         account,
         isValidated,
         saveAccount,
+        logout,
       }}
     >
       {children}

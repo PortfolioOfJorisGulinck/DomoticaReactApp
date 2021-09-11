@@ -8,9 +8,13 @@ import { FloorContext } from "./../../contexts/FloorContext";
 import DarkLogo from "./../../assets/logo/logo-dark.png";
 import LightLogo from "./../../assets/logo/logo-light.png";
 import { Link } from "react-router-dom";
-import { loginRoute, settingsRoute } from './../../routes';
+import { settingsRoute } from "./../../routes";
+import { AuthContext } from "../../contexts/AuthContext";
+import LoginBtn from "../auth/LoginBtn";
+import LogoutBtn from "../auth/LogoutBtn";
 
 const Menu = () => {
+  const { isValidated } = useContext(AuthContext);
   const { floors } = useContext(FloorContext);
   const { isLightTheme, light, dark } = useContext(ThemeContext);
   const theme = isLightTheme ? light : dark;
@@ -42,15 +46,7 @@ const Menu = () => {
             ))}
         </Nav>
         <Form inline>
-        <Link to={loginRoute}>
-            <Button
-              variant={`outline-${theme.btn}`}
-              className="mr-3 my-2 my-sm-0"
-            >
-              Inloggen
-            </Button>
-          </Link>
-
+          {isValidated ? <LogoutBtn /> : <LoginBtn />}
           <Link to={settingsRoute}>
             <Button
               variant={`outline-${theme.btn}`}
