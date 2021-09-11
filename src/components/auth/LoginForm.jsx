@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { registerRoute, resetPasswordRoute } from "./../../routes";
+import { AuthContext } from "../../contexts/AuthContext";
+import { homeRoute } from "../../routes";
+import { Redirect } from "react-router-dom";
 
 const LoginForm = () => {
-  const [account, setAccount] = useState({ email: "", password: "" });
-  const [validated, setValidated] = useState(false);
+  const { account, isValidated, saveAccount } = useContext(AuthContext);
 
   const handleChange = (e) => {
-    const newAccount = { ...account };
-    newAccount[e.currentTarget.name] = e.currentTarget.value;
-    setAccount({ newAccount });
+    const name = ([e.currentTarget.username] = e.currentTarget.value);
+    const password = ([e.currentTarget.password] = e.currentTarget.value);
+    console.log(name);
+    console.log(password);
+    saveAccount(name, password);
+    return <Redirect to={homeRoute} />;
   };
 
   const handleSubmit = (event) => {
@@ -21,21 +24,20 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
-    setValidated(true);
+    handleChange(event);
   };
 
   return (
     <Container>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
         <Form.Group controlId="loginFormEmail">
-          <Form.Label>Email addres</Form.Label>
+          <Form.Label>Gebruikersnaam</Form.Label>
           <Form.Control
             value={account.email}
             onChange={handleChange}
-            name="email"
-            type="email"
-            placeholder="Email"
+            name="userName"
+            type="userName"
+            placeholder="Gebruikersnaam"
             autoFocus
             required
           />
@@ -58,14 +60,6 @@ const LoginForm = () => {
           Verzend
         </Button>
       </Form>
-      <ul className="mt-5">
-        <li>
-          <Link to={resetPasswordRoute}>Wachtwoord vergeten?</Link>
-        </li>
-        <li>
-          <Link to={registerRoute}>Registreren</Link>
-        </li>
-      </ul>
     </Container>
   );
 };
