@@ -7,25 +7,24 @@ import { homeRoute } from "../../routes";
 import { Redirect } from "react-router-dom";
 
 const LoginForm = () => {
-  const { account, isValidated, saveAccount } = useContext(AuthContext);
+  const { saveUserName, savePassword, getJwtToken, isValidated } = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    const name = ([e.currentTarget.username] = e.currentTarget.value);
-    const password = ([e.currentTarget.password] = e.currentTarget.value);
-    console.log(name);
-    console.log(password);
-    saveAccount(name, password);
-    return <Redirect to={homeRoute} />;
+  const handleUserName = (e) => {
+    saveUserName({ userName: e.target.value });
+  };
+
+  const handlePassword = (e) => {
+    savePassword({ password: e.target.value });
   };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    handleChange(event);
+    event.preventDefault();
+    getJwtToken();
   };
+
+  if (isValidated) {
+    return <Redirect to={homeRoute} />;
+  }
 
   return (
     <Container>
@@ -33,8 +32,7 @@ const LoginForm = () => {
         <Form.Group controlId="loginFormEmail">
           <Form.Label>Gebruikersnaam</Form.Label>
           <Form.Control
-            value={account.email}
-            onChange={handleChange}
+            onChange={handleUserName}
             name="userName"
             type="userName"
             placeholder="Gebruikersnaam"
@@ -47,8 +45,7 @@ const LoginForm = () => {
         <Form.Group controlId="loginFormPassword">
           <Form.Label>Wachtwoord</Form.Label>
           <Form.Control
-            value={account.password}
-            onChange={handleChange}
+            onChange={handlePassword}
             name="password"
             type="password"
             placeholder="Wachtwoord"

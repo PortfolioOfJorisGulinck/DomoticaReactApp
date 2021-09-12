@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import HomePage from "./components/layout/HomePage";
 import RoomsList from "./components/rooms/RoomsList";
@@ -25,49 +25,47 @@ import RoomContextProvider from "./contexts/RoomContext";
 import SchemeContextProvider from "./contexts/SchemeContext";
 import AuthContextProvider from "./contexts/AuthContext";
 import Menu from "./components/layout/Menu";
-import LoginForm from "./components/auth/LoginForm";
+import LoginForm from "./components/auth/LoginForm"
 
-class App extends Component {
-  state = {};
-  render() {
-    return (
-      <AuthContextProvider>
-        <ThemeContextProvider>
-          <FloorContextProvider>
-            <RoomContextProvider>
-              <SchemeContextProvider>
-                <BrowserRouter>
-                  <Menu />
-                  <Switch>
-                    <Route
-                      exact
-                      path={startRoute}
-                      render={() => <Redirect to="/login" />}
-                    />
-                    <Route path={homeRoute} component={HomePage} />
-                    <Route path={roomsListRoute} component={RoomsList} />
-                    <Route path={roomsMapRoute} component={RoomsMap} />
-                    <Route path={roomDetailRoute} component={RoomDetail} />
-                    <Route
-                      path={newServiceSchemeRoute}
-                      component={NewServiceScheme}
-                    />
-                    <Route
-                      path={editServiceSchemeRoute}
-                      component={EditServiceScheme}
-                    />
-                    <Route path={settingsRoute} component={Settings} />
-                    <Route path={loginRoute} component={LoginForm} />
-                  </Switch>
-                  <Footer />
-                </BrowserRouter>
-              </SchemeContextProvider>
-            </RoomContextProvider>
-          </FloorContextProvider>
-        </ThemeContextProvider>
-      </AuthContextProvider>
-    );
-  }
-}
+const App = () => {
+
+  return (
+    <AuthContextProvider>
+      <ThemeContextProvider>
+        <FloorContextProvider>
+          <RoomContextProvider>
+            <SchemeContextProvider>
+              <BrowserRouter>
+                <Menu />
+                <Switch>
+                  <Route
+                    exact
+                    path={startRoute}
+                    render={() => <Redirect to={loginRoute} />}
+                  />
+                  <Route path={homeRoute} component={HomePage} />
+                  <Route path={roomsListRoute} component={RoomsList} />
+                  <Route path={roomsMapRoute} component={RoomsMap} />
+                  <Route path={roomDetailRoute} component={RoomDetail} />
+                  <Route
+                    path={newServiceSchemeRoute}
+                    component={NewServiceScheme}
+                  />
+                  <Route
+                    path={editServiceSchemeRoute}
+                    component={EditServiceScheme}
+                  />
+                  <Route path={settingsRoute} component={Settings} />
+                  <Route path={loginRoute} component={LoginForm} />
+                </Switch>
+                <Footer />
+              </BrowserRouter>
+            </SchemeContextProvider>
+          </RoomContextProvider>
+        </FloorContextProvider>
+      </ThemeContextProvider>
+    </AuthContextProvider>
+  );
+};
 
 export default App;

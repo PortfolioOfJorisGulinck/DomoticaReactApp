@@ -7,11 +7,16 @@ import Spinner from "react-bootstrap/Spinner";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { AuthContext } from "./../../contexts/AuthContext";
+import { Redirect } from "react-router-dom";
+import { loginRoute } from "../../routes";
+
 
 const RoomsList = () => {
   const { floorId } = useParams();
   const { readRoomsOfFloor } = useContext(RoomContext);
   const { readFloor } = useContext(FloorContext);
+  const { isValidated } = useContext(AuthContext);
 
   const [roomsOfFloor, setRoomsOfFloor] = useState([]);
   const [floor, setFloor] = useState();
@@ -20,6 +25,10 @@ const RoomsList = () => {
     setRoomsOfFloor(readRoomsOfFloor(+floorId));
     setFloor(readFloor(+floorId));
   }, [floorId, readFloor, readRoomsOfFloor]);
+
+  if (!isValidated) {
+    return <Redirect to={loginRoute} />;
+  }
 
   if (!(roomsOfFloor && floor))
     return (

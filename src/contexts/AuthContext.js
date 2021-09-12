@@ -4,31 +4,39 @@ import { getToken } from "./../api/getJwtToken";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [account, setAccount] = useState({ username: "", password: "" });
+  const [userName, setUserName] = useState({userName: ""});
+  const [password, setPassword] = useState({password: "" });
   const [isValidated, setIsValidated] = useState(false);
 
   const getJwtToken = async () => {
-    getToken(account).then((response) => setIsValidated(true));
+    getToken({...userName, ...password}).then((response) => setIsValidated(true));
   };
 
-  const saveAccount = (userName, password) => {
-    setAccount({ userName, password });
-    getJwtToken();
+  const saveUserName = (userName) => {
+    setUserName(userName);
+  };
+
+  const savePassword = (password) => {
+    setPassword(password);
   };
 
   const logout = () => {
     localStorage.clear();
-    setAccount({ username: "", password: "" });
+    setUserName({userName: ""});
+    setPassword({password: ""});
     setIsValidated(false);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        account,
+        saveUserName,
+        savePassword,
+        getJwtToken,
         isValidated,
-        saveAccount,
         logout,
+        userName,
+        password,
       }}
     >
       {children}
